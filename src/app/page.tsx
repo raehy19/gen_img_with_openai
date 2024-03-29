@@ -32,21 +32,41 @@ export default function Home() {
     }
   };
 
+  const genDallE3Image = async () => {
+    try {
+      const response = await fetch('/api/dall-e-3', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: prompt }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      if (data && data.url) {
+        setImgUrl(data.url);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-16 w-full min-w-[600px]'>
       <Card className='flex flex-col gap-3 items-center w-full min-w-[500px] p-16'>
         <CardHeader>
-          <CardTitle>Generate DALL-E-2 Image</CardTitle>
+          <CardTitle>Generate DALL-E Image</CardTitle>
         </CardHeader>
-        <CardContent className='flex flex-col gap-3 items-center w-full'>
-          <p>Enter Prompt</p>
+        <CardContent className='flex flex-col gap-4 items-center w-[400px]'>
+          <p>Enter a prompt to generate an image</p>
           <Input
-            className='w-full min-w-80 '
+            className='text-center '
+            placeholder='prompt'
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
-          <Button onClick={generateImage}>generate</Button>
-          <div className='w-full h-0 border border-solid border-b-gray-400' />
+          <Button onClick={generateImage}>generate with dall-e-2</Button>
           {imgUrl && (
             <img src={imgUrl} alt='Generated IMG' width={256} height={256} />
           )}
@@ -55,6 +75,7 @@ export default function Home() {
               {imgUrl}
             </a>
           )}
+          {/*<Button onClick={genDallE3Image}>generate with dall-e-3</Button>*/}
         </CardContent>
       </Card>
     </main>
