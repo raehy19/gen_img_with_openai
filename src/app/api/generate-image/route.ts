@@ -1,4 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+
+// prompt 추가 가능
+const customPrompt = 'blockchain nft, abstract art, pixel art,';
 
 export async function POST(req: Request) {
   try {
@@ -12,18 +15,14 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         model: 'dall-e-2',
-        prompt: prompt,
+        prompt: customPrompt + prompt,
         n: 1,
         size: '256x256',
       }),
     });
 
-    console.log(res);
-
     const data = await res.json();
     console.log('data : ', data);
-
-    console.log(data.data[0].url);
 
     if (data && data.data) {
       return NextResponse.json({ url: data.data[0].url });
