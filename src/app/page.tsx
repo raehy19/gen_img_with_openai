@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [prompt, setPrompt] = useState('');
@@ -53,8 +54,11 @@ export default function Home() {
   };
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-16 w-full min-w-[600px]'>
-      <Card className='flex flex-col gap-3 items-center w-full min-w-[500px] p-16'>
+    <main className='flex min-h-screen flex-col items-center p-8 w-full min-w-[600px] gap-4'>
+      <Link href={'/images'}>
+        <Button>Images</Button>
+      </Link>
+      <Card className='flex flex-col gap-3 items-center w-full min-w-[500px] p-8'>
         <CardHeader>
           <CardTitle>Generate DALL-E Image</CardTitle>
         </CardHeader>
